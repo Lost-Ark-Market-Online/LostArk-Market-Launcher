@@ -22,16 +22,16 @@ class LostArkMarketLauncherDownload(QMainWindow):
     def load_ui(self):
         loader = QUiLoader()
         loader.registerCustomWidget(DownloadProgressBar)
-        loader.registerCustomWidget(DraggableWindow)
-        path = os.fspath(Path(__file__).resolve().parent /
-                         "../../assets/ui/download.ui")
-        ui_file = QFile(path)
+        loader.registerCustomWidget(DraggableWindow)                         
+        ui_file = QFile(os.path.join(os.path.dirname(
+            __file__), "../../assets/ui/download.ui"))
         ui_file.open(QFile.ReadOnly)
         self.ui = loader.load(ui_file, self)
         self.ui.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.ui.lblTitle.setText(
             f'New version of the Lost Ark Market Watcher Found: v{self.data["version"]}')
         self.ui.btnClose.clicked.connect(self.close)
+        self.ui.btnSkip.clicked.connect(self.close)
         self.ui.btnDownload.clicked.connect(self.download)
         self.ui.pbDownload.finished.connect(self.download_done)
 
@@ -55,4 +55,5 @@ class LostArkMarketLauncherDownload(QMainWindow):
         self.finished_download.emit()
 
     def launch_app(self):
+        self.ui.close()
         self.launch.emit()

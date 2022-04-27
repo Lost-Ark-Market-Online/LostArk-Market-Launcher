@@ -19,7 +19,7 @@ class PlaySoundThread(Thread):
 
 def playSuccess():
     PlaySoundThread(os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                 "../assets/sounds/mixkit-game-magic-hint-962.wav"))).start()
+                                                 "../assets/sounds/mixkit-arcade-bonus-alert-767.wav"))).start()
 
 
 def playUpdateDetected():
@@ -30,3 +30,7 @@ def playUpdateDetected():
 def playError():
     PlaySoundThread(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                  "../assets/sounds/mixkit-game-warning-quick-notification-267.wav"))).start()
+
+def playDownloadComplete():
+    PlaySoundThread(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                 "../assets/sounds/mixkit-fantasy-game-success-notification-270.wav"))).start()

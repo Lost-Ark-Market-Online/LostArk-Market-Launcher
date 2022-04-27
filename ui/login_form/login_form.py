@@ -23,9 +23,8 @@ class LostArkMarketLoginForm(QMainWindow):
     def load_ui(self):
         print('Login Form: Load UI')
         loader = QUiLoader()
-        path = os.fspath(Path(__file__).resolve().parent /
-                         "../../assets/ui/login_form.ui")
-        ui_file = QFile(path)
+        ui_file = QFile(os.path.join(os.path.dirname(
+            __file__), "../../assets/ui/login_form.ui"))
         ui_file.open(QFile.ReadOnly)
         loader.registerCustomWidget(DraggableWindow)
         self.ui = loader.load(ui_file, self)

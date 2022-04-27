@@ -1,12 +1,13 @@
 import os
 import sys
 import traceback
+import subprocess
 
 from PySide6.QtWidgets import QApplication
 from modules.app_version import get_app_version
 from modules.config import update_latest_app_version, get_tokens, needs_update, update_current_app_version
 from modules.errors import NoTokenError
-from modules.sound import playError, playSuccess, playUpdateDetected
+from modules.sound import playDownloadComplete, playError, playSuccess, playUpdateDetected
 from ui.download.download import LostArkMarketLauncherDownload
 from ui.login_form.login_form import LostArkMarketLoginForm
 from modules.auth import refresh_token
@@ -27,6 +28,7 @@ class LostArkMarketOnlineLauncher(QApplication):
             self.check_config()
         except NoTokenError:
             traceback.print_exc()
+            playUpdateDetected()
             self.login_form = LostArkMarketLoginForm()
             self.login_form.login_success.connect(self.login_success)
             self.login_form.login_error.connect(self.login_error)
@@ -54,10 +56,14 @@ class LostArkMarketOnlineLauncher(QApplication):
             self.launch_watcher()
 
     def finished_download(self):
+        playDownloadComplete()
         update_current_app_version(self.latest_app_version)
 
     def launch_watcher(self):
-        os.system("LostArkMarketWatcher.exe")
+        playSuccess()
+        si = subprocess.STARTUPINFO()
+        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        subprocess.call("LostArkMarketWatcher.exe")
         sys.exit()
 
 
