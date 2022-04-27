@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LostArkMarketLauncherDownload</class>
+ <widget class="QMainWindow" name="LostArkMarketLauncherDownload">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>483</width>
+    <height>266</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LostArkMarketLauncherDownload</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-image: url(:/resources/images/background.png);  
+}
+QLabel{
+  color: white;
+}
+QPushButton#btnDownload,
+QPushButton#btnSkip{
+	background-image: url(:/resources/images/btnNormal.png);
+    color: white;
+    height: 32px;
+    border: none;
+}
+QPushButton:hover#btnDownload,
+QPushButton:hover#btnSkip{
+	background-image: url(:/resources/images/btnHover.png);
+    height: 32px;
+}
+QPushButton:pressed#btnDownload,
+QPushButton:pressed#btnSkip{
+	background-image: url(:/resources/images/btnDown.png);
+    height: 32px;
+}</string>
+  </property>
+  <widget class="DraggableWindow" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <property name="leftMargin">
+       <number>8</number>
+      </property>
+      <property name="topMargin">
+       <number>8</number>
+      </property>
+      <property name="rightMargin">
+       <number>8</number>
+      </property>
+      <property name="bottomMargin">
+       <number>8</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnClose">
+          <property name="styleSheet">
+           <string notr="true">QPushButton#btnClose{  
+    qproperty-icon: url(:/resources/images/btnCloseIcon.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnClose.png);
+    border: none;
+	height: 32px;
+	width: 32px;
+}
+
+QPushButton:hover#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseHover.png);
+}
+
+QPushButton:pressed#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseDown.png);
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <property name="leftMargin">
+         <number>8</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>8</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblLogo">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/resources/images/logo_p.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTitle">
+            <property name="text">
+             <string>New version of the Lost Ark Market Watcher Found: v2.0.0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="DownloadProgressBar" name="pbDownload">
+        <property name="styleSheet">
+         <string notr="true">QProgressBar {
+    border: 2px solid grey;
+    border-radius: 4px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    width: 20px;
+}</string>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btnSkip">
+          <property name="text">
+           <string>Skip</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnDownload">
+          <property name="text">
+           <string>Download</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DownloadProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>downloadprogressbar.py</header>
+  </customwidget>
+  <customwidget>
+   <class>DraggableWindow</class>
+   <extends>QWidget</extends>
+   <header>draggablewindow.py</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
