@@ -12,4 +12,5 @@ pyinstaller_versionfile.create_versionfile_from_input_file(
 
 PyInstaller.__main__.run([
     'compile.spec',
+    '--clean'
 ])

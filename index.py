@@ -30,7 +30,6 @@ class LostArkMarketOnlineLauncher(QApplication):
         self.launcher_check_config()
 
     # Launcher Version Check
-
     def launcher_check_config(self):
         Config().check_launcher_version()
         AppLogger().info(
@@ -41,7 +40,7 @@ class LostArkMarketOnlineLauncher(QApplication):
             self.download = LostArkMarketLauncherDownload({
                 "url": f'https://github.com/gogodr/LostArk-Market-Launcher/releases/download/{Config().launcher_version}/{Config().launcher_file}.exe',
                 "title": f'New version of the Lost Ark Market Launcher Found: v{Config().launcher_version}',
-                "file":  f'{Config().launcher_file}.exe'
+                "file":  f'{Config().launcher_file}.exe.new'
             })
             self.download.launch.connect(self.launch_launcher)
             self.download.finished_download.connect(self.launcher_downloaded)
@@ -49,8 +48,18 @@ class LostArkMarketOnlineLauncher(QApplication):
             self.session_check()
 
     def launch_launcher(self):
-        os.startfile(sys.argv[0])
-        sys.exit()
+        f = open("update-launcher.bat", "w")
+        f.write("""@echo off
+taskkill /f /im lamo-launcher.exe >nul
+timeout /t 1 /nobreak >nul
+del lamo-launcher.exe
+timeout /t 1 /nobreak >nul
+ren lamo-launcher.exe.new lamo-launcher.exe
+timeout /t 1 /nobreak >nul
+start /b lamo-launcher.exe
+(goto) 2>nul & del "%~f0""")
+        f.close()
+        os.system("update-launcher.bat")
 
     def launcher_downloaded(self):
         playDownloadComplete()

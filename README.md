@@ -18,6 +18,9 @@ Audio files from [MixKit](https://mixkit.co/)
 
 
 ### Changelog
+### 1.2.4.1
+- Update and relaunch procedure rework
+
 ### 1.2.3.1
 - Logging update
 - Launcher version check
