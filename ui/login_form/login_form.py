@@ -3,6 +3,7 @@ import traceback
 from pathlib import Path
 from PySide6.QtWidgets import QMainWindow, QLineEdit
 from PySide6.QtCore import QFile, Qt, Signal
+from modules.logging import AppLogger
 from ui.common.draggablewindow import DraggableWindow
 from ui.common.uiloader import UiLoader
 import ui.login_form.resources
@@ -39,7 +40,7 @@ class LostArkMarketLoginForm(QMainWindow):
         try:
             login(self.txtEmail.text(), self.txtPassword.text())
             self.login_success.emit()
-        except:
-            traceback.print_exc()
+        except Exception as ex:
+            AppLogger().exception(ex)
             self.btnLogin.setEnabled(True)
             self.login_error.emit()

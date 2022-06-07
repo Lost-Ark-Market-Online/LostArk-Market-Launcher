@@ -17,9 +17,9 @@ class LostArkMarketLauncherDownload(QMainWindow):
 
     def __init__(self, data):
         super(LostArkMarketLauncherDownload, self).__init__()
+        self.data = data
         self.load_ui()
         self.setWindowTitle("Download - Lost Ark Market Online")
-        self.data = data
         self.show()
 
     def load_ui(self):
@@ -31,8 +31,7 @@ class LostArkMarketLauncherDownload(QMainWindow):
         ui_file.open(QFile.ReadOnly)
         widget = loader.load(ui_file)
         widget.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-        widget.lblTitle.setText(
-            f'New version of the Lost Ark Market Watcher Found: v{Config().watcher_version}')
+        widget.lblTitle.setText(self.data['title'])
         widget.btnClose.clicked.connect(self.close)
         widget.btnSkip.clicked.connect(self.close)
         widget.btnDownload.clicked.connect(self.download)
@@ -44,7 +43,7 @@ class LostArkMarketLauncherDownload(QMainWindow):
         self.btnDownload.setEnabled(False)
         self.btnSkip.setEnabled(False)
         self.pbDownload.download_file(
-            self.data['url'], f'{Config().watcher_file}.exe')
+            self.data['url'], self.data['file'])
 
     def download_done(self):
         self.btnDownload.clicked.disconnect(self.download)

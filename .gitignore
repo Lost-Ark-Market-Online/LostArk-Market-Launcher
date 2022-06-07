@@ -6,3 +6,5 @@ __pycache__
 config.ini
 file_version_info.txt
 lamo-watcher.exe
+lamo-launcher.exe
+logs/

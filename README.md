@@ -18,6 +18,10 @@ Audio files from [MixKit](https://mixkit.co/)
 
 
 ### Changelog
+### 1.2.3.1
+- Logging update
+- Launcher version check
+
 ### 1.2.1.1
 - Update forms
 - Update config strategy

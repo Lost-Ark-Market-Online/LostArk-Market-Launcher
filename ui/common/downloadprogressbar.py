@@ -6,6 +6,7 @@ from urllib.request import urlopen
 from PySide6.QtWidgets import QProgressBar
 from PySide6.QtCore import Signal
 from modules.invoker import invoke_in_main_thread
+from modules.logging import AppLogger
 
 
 class DownloadProgressBar(QProgressBar):
@@ -44,6 +45,6 @@ class DownloadThread(Thread):
                 invoke_in_main_thread(self.progress_bar.setValue, value)
             f.close()
             invoke_in_main_thread(self.progress_bar.finished.emit)
-        except:
-            traceback.print_exc()
+        except Exception as ex:
+            AppLogger().exception(ex)
             invoke_in_main_thread(self.progress_bar.error.emit)
