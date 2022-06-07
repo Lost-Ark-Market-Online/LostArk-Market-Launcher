@@ -4,3 +4,5 @@ build/
 dist/
 __pycache__
 config.ini
+file_version_info.txt
+lamo-watcher.exe

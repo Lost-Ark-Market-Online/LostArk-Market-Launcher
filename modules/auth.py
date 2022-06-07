@@ -1,5 +1,5 @@
 import requests
-from modules.config import update_token
+from modules.config import Config
 from modules.errors import LoginError, NoTokenError
 
 api_key = 'AIzaSyBMTA0A2fy-dh4jWidbAtYseC7ZZssnsmk'
@@ -14,12 +14,11 @@ def login(email, password):
     tokens = res.json()
     if 'error' in tokens:
         raise LoginError()
-    update_token({
+    Config().update_token({
         "id_token": tokens['idToken'],
         "refresh_token": tokens['refreshToken'],
         "uid": tokens['localId'],
     })
-    return tokens['idToken'], tokens['refreshToken'], tokens['localId']
 
 
 def refresh_token(token):
@@ -30,9 +29,8 @@ def refresh_token(token):
     tokens = res.json()
     if 'error' in tokens:
         raise NoTokenError()
-    update_token({
-        "id_token": tokens['id_token'],
-        "refresh_token": tokens['refresh_token'],
-        "uid": tokens['user_id'],
+    Config().update_token({
+        "id_token": tokens['idToken'],
+        "refresh_token": tokens['refreshToken'],
+        "uid": tokens['localId'],
     })
-    return tokens['id_token'], tokens['refresh_token'], tokens['user_id']

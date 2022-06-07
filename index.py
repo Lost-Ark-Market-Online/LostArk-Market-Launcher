@@ -4,31 +4,20 @@ import traceback
 import subprocess
 
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon
 from modules.app_version import get_app_version
-from modules.config import update_latest_app_version, get_tokens, needs_update, update_current_app_version
-from modules.errors import NoTokenError
+from modules.config import Config
 from modules.sound import playDownloadComplete, playError, playSuccess, playUpdateDetected
 from ui.download.download import LostArkMarketLauncherDownload
 from ui.login_form.login_form import LostArkMarketLoginForm
-from modules.auth import refresh_token
-
-
 
 class LostArkMarketOnlineLauncher(QApplication):
-    refresh_token = None
-    id_token = None
-    uid = None
-
     def __init__(self, *args, **kwargs):
         QApplication.__init__(self, *args, **kwargs)
-        try:
-            self.id_token, self.refresh_token, self.uid = get_tokens()
-            self.id_token, self.refresh_token, self.uid = refresh_token(
-                self.refresh_token)
+        
+        if(Config().refresh_token):            
             self.check_config()
-        except NoTokenError:
-            traceback.print_exc()
-            playUpdateDetected()
+        else:
             self.login_form = LostArkMarketLoginForm()
             self.login_form.login_success.connect(self.login_success)
             self.login_form.login_error.connect(self.login_error)
@@ -38,17 +27,15 @@ class LostArkMarketOnlineLauncher(QApplication):
 
     def login_success(self):
         playSuccess()
-        self.login_form.ui.hide()
+        self.login_form.close()
         self.check_config()
 
     def check_config(self):
-        self.latest_app_version = get_app_version()
-        update_latest_app_version(self.latest_app_version)
-        if needs_update() == True:
+        Config().check_watcher_version()
+        if Config().needs_update == True:
             playUpdateDetected()
             self.download = LostArkMarketLauncherDownload({
-                "url": f'https://github.com/gogodr/LostArk-Market-Watcher/releases/download/{self.latest_app_version}/LostArkMarketWatcher.exe',
-                "version": self.latest_app_version
+                "url": f'https://github.com/gogodr/LostArk-Market-Watcher/releases/download/{Config().watcher_version}/{Config().watcher_file}.exe'
             })
             self.download.launch.connect(self.launch_watcher)
             self.download.finished_download.connect(self.finished_download)
@@ -57,16 +44,22 @@ class LostArkMarketOnlineLauncher(QApplication):
 
     def finished_download(self):
         playDownloadComplete()
-        update_current_app_version(self.latest_app_version)
+        if(Config().run_after_download):
+            self.download.close()
+            self.launch_watcher()
 
     def launch_watcher(self):
         playSuccess()
         si = subprocess.STARTUPINFO()
         si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        subprocess.call("LostArkMarketWatcher.exe")
+        subprocess.call(f"{Config().watcher_file}.exe")
         sys.exit()
 
 
 if __name__ == "__main__":
+    Config()
     app = LostArkMarketOnlineLauncher([])
+    icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                "assets/icons/favicon.png")))
+    app.setWindowIcon(icon)
     sys.exit(app.exec())
