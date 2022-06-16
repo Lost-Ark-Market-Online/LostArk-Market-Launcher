@@ -1,3 +1,4 @@
+from time import sleep
 from modules.logging import AppLogger
 from modules.messagebox import MessageBoxHandler
 import modules.single_instance
@@ -87,12 +88,13 @@ start /b lamo-launcher.exe
     # Watcher Version Check
     def check_config(self):
         Config().check_watcher_version()
+        print(f"Needs watcher update: {Config().watcher_needs_update}")
         if Config().watcher_needs_update == True:
             playUpdateDetected()
             self.download = LostArkMarketLauncherDownload({
                 "url": f'https://github.com/gogodr/LostArk-Market-Watcher/releases/download/{Config().watcher_version}/{Config().watcher_file}.exe',
                 "title": f'New version of the Lost Ark Market Watcher Found: v{Config().watcher_version}',
-                "file":  f'{Config().watcher_file}.exe'
+                "file":  f'{Config().watcher_file}.exe.new'
             })
             self.download.launch.connect(self.launch_watcher)
             self.download.finished_download.connect(self.watcher_downloaded)
@@ -106,12 +108,17 @@ start /b lamo-launcher.exe
             self.launch_watcher()
 
     def launch_watcher(self):
+        sleep(2)
+        if os.path.exists(f"{Config().watcher_file}.exe.new") == True:
+            if os.path.exists(f"{Config().watcher_file}.exe") == True:
+                os.system(f"del /f {Config().watcher_file}.exe")
+            os.system(f"rename {Config().watcher_file}.exe.new {Config().watcher_file}.exe")
+        sleep(2)
         playSuccess()
         si = subprocess.STARTUPINFO()
         si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         subprocess.call(f"{Config().watcher_file}.exe")
         sys.exit()
-
 
 if __name__ == "__main__":
     try:

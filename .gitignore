@@ -8,3 +8,6 @@ file_version_info.txt
 lamo-watcher.exe
 lamo-launcher.exe
 logs/
+index.build/
+index.dist/
+index.onefile-build

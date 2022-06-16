@@ -7,7 +7,7 @@ from modules.common.singleton import Singleton
 
 
 class Config(metaclass=Singleton):
-    version = "1.2.4.1"
+    version = "1.2.6.2"
     debug = False
     id_token: str = None
     refresh_token: str = None
@@ -47,7 +47,6 @@ class Config(metaclass=Singleton):
                     "Watcher", "play_audio") == 'True'
             else:
                 self.play_audio = True
-                changes = True
 
             if self._config.has_option("Watcher", "volume"):
                 self.volume = float(self._config.get(
@@ -120,6 +119,7 @@ class Config(metaclass=Singleton):
             curr_version = version.parse(
                 f"{HIWORD(ms)}.{LOWORD(ms)}.{HIWORD(ls)}.{LOWORD(ls)}")
             latest_version = version.parse(self.launcher_version)
+            pe.close()
 
             if latest_version > curr_version:
                 self.launcher_needs_update = True
@@ -148,6 +148,7 @@ class Config(metaclass=Singleton):
             curr_version = version.parse(
                 f"{HIWORD(ms)}.{LOWORD(ms)}.{HIWORD(ls)}.{LOWORD(ls)}")
             latest_version = version.parse(self.watcher_version)
+            pe.close()
 
             if latest_version > curr_version:
-                self.needs_update = True
+                self.watcher_needs_update = True

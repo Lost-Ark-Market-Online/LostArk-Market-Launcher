@@ -1,1 +1,1 @@
-pyinstaller release.spec
+python -m nuitka --standalone --windows-icon-from-ico=assets/icons/favicon.ico --enable-plugin=pyside6 --include-data-dir=assets=assets --follow-imports --onefile --windows-disable-console --windows-file-version=1.2.4.1 --windows-product-version=1.2.4.1 --windows-company-name="Lost Ark Market Online" --windows-product-name="Lost Ark Market Online Launcher App" -o lamo-launcher.exe index.py

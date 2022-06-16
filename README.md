@@ -18,6 +18,10 @@ Audio files from [MixKit](https://mixkit.co/)
 
 
 ### Changelog
+### 1.2.6.2
+- Update VolumeController threadsafe
+- Fix watcher update operation
+
 ### 1.2.4.1
 - Update and relaunch procedure rework
 
