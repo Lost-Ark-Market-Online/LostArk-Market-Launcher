@@ -7,7 +7,7 @@ from modules.common.singleton import Singleton
 
 
 class Config(metaclass=Singleton):
-    version = "1.2.6.2"
+    version = "1.2.6.3"
     debug = False
     id_token: str = None
     refresh_token: str = None

@@ -39,7 +39,7 @@ class LostArkMarketOnlineLauncher(QApplication):
             AppLogger().info(f"Launcher needs update")
             playUpdateDetected()
             self.download = LostArkMarketLauncherDownload({
-                "url": f'https://github.com/gogodr/LostArk-Market-Launcher/releases/download/{Config().launcher_version}/{Config().launcher_file}.exe',
+                "url": f'https://github.com/Lost-Ark-Market-Online/LostArk-Market-Launcher/releases/download/{Config().launcher_version}/{Config().launcher_file}.exe',
                 "title": f'New version of the Lost Ark Market Launcher Found: v{Config().launcher_version}',
                 "file":  f'{Config().launcher_file}.exe.new'
             })
@@ -92,7 +92,7 @@ start /b lamo-launcher.exe
         if Config().watcher_needs_update == True:
             playUpdateDetected()
             self.download = LostArkMarketLauncherDownload({
-                "url": f'https://github.com/gogodr/LostArk-Market-Watcher/releases/download/{Config().watcher_version}/{Config().watcher_file}.exe',
+                "url": f'https://github.com/Lost-Ark-Market-Online/LostArk-Market-Watcher/releases/download/{Config().watcher_version}/{Config().watcher_file}.exe',
                 "title": f'New version of the Lost Ark Market Watcher Found: v{Config().watcher_version}',
                 "file":  f'{Config().watcher_file}.exe.new'
             })
