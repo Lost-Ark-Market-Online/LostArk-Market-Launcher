@@ -12,20 +12,17 @@ from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal
 from modules.app_version import get_app_version
 from modules.config import Config
-from modules.sound import VolumeController, playDownloadComplete, playError, playSuccess, playUpdateDetected
+from modules.sound import playDownloadComplete, playError, playSuccess, playUpdateDetected
 from ui.download.download import LostArkMarketLauncherDownload
 from ui.login_form.login_form import LostArkMarketLoginForm
 
 
 class LostArkMarketOnlineLauncher(QApplication):
     message_box_handler: MessageBoxHandler
-    volume_controller: VolumeController
     message_box = Signal(dict)
 
     def __init__(self, *args, **kwargs):
         QApplication.__init__(self, *args, **kwargs)
-
-        self.volume_controller = VolumeController()
         self.message_box_handler = MessageBoxHandler(self.message_box)
 
         self.launcher_check_config()
@@ -112,13 +109,15 @@ start /b lamo-launcher.exe
         if os.path.exists(f"{Config().watcher_file}.exe.new") == True:
             if os.path.exists(f"{Config().watcher_file}.exe") == True:
                 os.system(f"del /f {Config().watcher_file}.exe")
-            os.system(f"rename {Config().watcher_file}.exe.new {Config().watcher_file}.exe")
+            os.system(
+                f"rename {Config().watcher_file}.exe.new {Config().watcher_file}.exe")
         sleep(2)
         playSuccess()
         si = subprocess.STARTUPINFO()
         si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         subprocess.call(f"{Config().watcher_file}.exe")
         sys.exit()
+
 
 if __name__ == "__main__":
     try:
